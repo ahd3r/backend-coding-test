@@ -43,6 +43,7 @@ export const logRes = (resBody: any, method: string) => {
   );
 };
 
+/* eslint-disable */
 export const errorHandler = (
   err: any,
   req: express.Request,
@@ -58,6 +59,7 @@ export const errorHandler = (
   const data = JSON.parse(JSON.stringify({ status, type, message, errors, path }));
   res.status(error.status).send(data);
 };
+/* eslint-enable */
 
 export const responseHandler = (
   req: express.Request,
