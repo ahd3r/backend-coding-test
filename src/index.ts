@@ -16,7 +16,7 @@ import { errorHandler, logReq, responseHandler } from './utils/middleware';
 import { router as rideRouter } from './routers/ride.router';
 import { RidesEntity } from './models/rides';
 
-const app: express.Express = express();
+export const app: express.Express = express();
 
 app.use(cors({ origin: '*' }));
 app.use(helmet());
