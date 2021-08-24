@@ -1,15 +1,15 @@
 import * as express from 'express';
 import * as dotenv from 'dotenv';
-import helmet from 'helmet';
+import * as helmet from 'helmet';
 import * as cors from 'cors';
 import { createConnection } from 'typeorm';
 
 if (process.env.NODE_ENV === 'production') {
-  dotenv.config({ path: '../production.env' });
+  dotenv.config({ path: 'production.env' });
 } else if (process.env.NODE_ENV === 'development') {
-  dotenv.config({ path: '../development.env' });
+  dotenv.config({ path: 'development.env' });
 } else if (process.env.NODE_ENV === 'test') {
-  dotenv.config({ path: '../test.env' });
+  dotenv.config({ path: 'test.env' });
 }
 
 import { errorHandler, logReq, responseHandler } from './utils/middleware';

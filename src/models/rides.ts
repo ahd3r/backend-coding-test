@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm';
 
 @Entity({ name: 'Rides' })
 export class RidesEntity extends BaseEntity {
-  @PrimaryGeneratedColumn('increment', { type: 'decimal', name: 'rideID' })
+  @PrimaryGeneratedColumn('increment', { type: 'int', name: 'rideID' })
   public id: number;
 
   @Column({ type: 'decimal', name: 'startLat' })
@@ -26,6 +26,6 @@ export class RidesEntity extends BaseEntity {
   @Column({ type: 'text', name: 'driverVehicle' })
   public driverVehicle: string;
 
-  @Column({ type: 'date', default: new Date(), name: 'created' })
+  @Column({ type: 'date', default: () => 'CURRENT_TIMESTAMP', name: 'created' })
   public createdAt: Date;
 }

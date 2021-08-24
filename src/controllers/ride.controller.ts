@@ -1,4 +1,4 @@
-import express from 'express';
+import * as express from 'express';
 
 import { rideService } from '../services/ride.service';
 
@@ -9,7 +9,7 @@ class RideController {
     next: express.NextFunction
   ): Promise<void> {
     try {
-      (res as any).body = rideService.createRide(req.body);
+      (res as any).body = await rideService.createRide(req.body);
       return next();
     } catch (e) {
       return next(e);
@@ -22,7 +22,11 @@ class RideController {
     next: express.NextFunction
   ): Promise<void> {
     try {
-      (res as any).body = rideService.getRides();
+      const page: number = req.query.page as any;
+      const limit: number = req.query.limit as any;
+      (res as any).body = await rideService.getRides(page, limit);
+      (res as any).pagination = await rideService.getPagination(page, limit);
+      (res as any).pagination.inPage = (res as any).body.length;
       return next();
     } catch (e) {
       return next(e);
@@ -35,7 +39,7 @@ class RideController {
     next: express.NextFunction
   ): Promise<void> {
     try {
-      (res as any).body = rideService.getRide(Number(req.params.rideId));
+      (res as any).body = await rideService.getRide(Number(req.params.rideId));
       return next();
     } catch (e) {
       return next(e);

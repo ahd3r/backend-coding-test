@@ -71,6 +71,9 @@ export const responseHandler = (
   }
   logRes((res as any).body, req.method);
   const response: any = { data: (res as any).body };
+  if ((res as any).pagination) {
+    response.pagination = (res as any).pagination;
+  }
   res.status(req.method === 'POST' ? 201 : 200).send(response);
 };
 

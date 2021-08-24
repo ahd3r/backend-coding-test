@@ -1,5 +1,5 @@
-import express from 'express';
-import { body, param } from 'express-validator';
+import * as express from 'express';
+import { body, param, query } from 'express-validator';
 
 import { rideController } from '../controllers/ride.controller';
 import { validateErrors } from '../utils/middleware';
@@ -41,7 +41,22 @@ router.post(
   rideController.createRide
 );
 
-router.get('/', rideController.getRides);
+router.get(
+  '/',
+  [
+    query('page')
+      .isInt({ min: 1 })
+      .withMessage('Query page has to be an integer')
+      .toInt()
+      .default(1),
+    query('limit')
+      .isInt({ min: 1 })
+      .withMessage('Query limit has to be an integer')
+      .toInt()
+      .default(10)
+  ],
+  rideController.getRides
+);
 
 router.get(
   '/:rideId',
