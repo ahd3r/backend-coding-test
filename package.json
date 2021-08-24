@@ -47,10 +47,5 @@
     "prettier": "^2.3.2",
     "supertest": "^6.1.6",
     "ts-node": "^10.2.1"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run format && npm run lint"
-    }
   }
 }
