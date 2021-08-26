@@ -1,0 +1,107 @@
+{
+  "/rides": {
+    "get": {
+      "description": "Returns all rides",
+      "tags": ["Rides"],
+      "parameters": [{
+        "name": "page",
+        "in": "query"
+      }, {
+        "name": "limit",
+        "in": "query"
+      }],
+      "responses": {
+        "200": {
+          "description": "A list of rides.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/rideBulkResponse"
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "Validation error occurred.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/validationError"
+              }
+            }
+          }
+        }
+      }
+    },
+    "post": {
+      "description": "Returns a created ride",
+      "tags": ["Rides"],
+      "requestBody": {
+        "description": "Data to create a ride",
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/requestRide"
+            }
+          }
+        }
+      },
+      "responses": {
+        "201": {
+          "description": "Created ride.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ride"
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "Validation error occurred.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/validationError"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/rides/{rideId}": {
+    "get": {
+      "description": "Returns a ride by id",
+      "tags": ["Rides"],
+      "parameters": [{
+        "name": "rideId",
+        "in": "path",
+        "required": true
+      }],
+      "responses": {
+        "200": {
+          "description": "Ride by id.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/rideResponse"
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "Validation error occurred.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/validationError"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

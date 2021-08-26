@@ -3,6 +3,7 @@ import * as dotenv from 'dotenv';
 import * as helmet from 'helmet';
 import * as cors from 'cors';
 import { createConnection } from 'typeorm';
+import * as swaggerUi from 'swagger-ui-express';
 
 if (process.env.NODE_ENV === 'production') {
   dotenv.config({ path: 'production.env' });
@@ -16,6 +17,15 @@ import { errorHandler, logReq, responseHandler } from './utils/middleware';
 import { router as rideRouter } from './routers/ride.router';
 import { RidesEntity } from './models/rides';
 
+let swaggerDocument: any;
+if (process.env.NODE_ENV === 'production') {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  swaggerDocument = require('../documentation/swagger-prod.json');
+} else if (process.env.NODE_ENV === 'development') {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  swaggerDocument = require('../documentation/swagger-dev.json');
+}
+
 export const createApp = async () => {
   const app: express.Express = express();
   app.use(cors({ origin: '*' }));
@@ -24,6 +34,18 @@ export const createApp = async () => {
 
   app.use(logReq);
 
+  if (swaggerDocument) {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const paths: any = require('../documentation/paths.json');
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const components: any = require('../documentation/components.json');
+
+    app.use(
+      '/api-docs',
+      swaggerUi.serve,
+      swaggerUi.setup({ ...swaggerDocument, paths, components })
+    );
+  }
   app.get('/health', (req: express.Request, res: express.Response, next: express.NextFunction) => {
     (res as any).body = { message: 'API' };
     next();

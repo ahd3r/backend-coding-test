@@ -1,0 +1,13 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "backend-coding-test",
+    "description": "A coding assessment for Xendit backend interviews"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8011"
+    }
+  ]
+}

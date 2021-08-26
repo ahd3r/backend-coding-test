@@ -1,0 +1,141 @@
+{
+  "schemas": {
+    "requestRide": {
+      "type": "object",
+      "required": [
+        "start_lat",
+        "start_long",
+        "end_lat",
+        "end_long",
+        "rider_name",
+        "driver_name",
+        "driver_vehicle"
+      ],
+      "properties": {
+        "start_lat": {
+          "minimum": -90,
+          "maximum": 90,
+          "type": "number"
+        },
+        "start_long": {
+          "minimum": -180,
+          "maximum": 180,
+          "type": "number"
+        },
+        "end_lat": {
+          "minimum": -90,
+          "maximum": 90,
+          "type": "number"
+        },
+        "end_long": {
+          "minimum": -180,
+          "maximum": 180,
+          "type": "number"
+        },
+        "rider_name": {
+          "type": "string"
+        },
+        "driver_name": {
+          "type": "string"
+        },
+        "driver_vehicle": {
+          "type": "string"
+        }
+      }
+    },
+    "rideBulkResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/rideResponse"
+          }
+        },
+        "pagination": {
+          "$ref": "#/components/schemas/pagination"
+        }
+      }
+    },
+    "validationError": {
+      "type": "object",
+      "properties": {
+        "massage": {
+          "type": "string"
+        },
+        "status": {
+          "type": "number"
+        },
+        "type": {
+          "type": "string"
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "error"
+          }
+        },
+        "path": {
+          "type": "string"
+        }
+      }
+    },
+    "rideResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/components/schemas/ride"
+        }
+      }
+    },
+    "ride": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "startLat": {
+          "type": "number"
+        },
+        "startLong": {
+          "type": "number"
+        },
+        "endLat": {
+          "type": "number"
+        },
+        "endLong": {
+          "type": "number"
+        },
+        "riderName": {
+          "type": "string"
+        },
+        "driverName": {
+          "type": "string"
+        },
+        "driverVehicle": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        }
+      }
+    },
+    "pagination": {
+      "type": "object",
+      "properties": {
+        "inPage": {
+          "type": "number"
+        },
+        "total": {
+          "type": "number"
+        },
+        "skip": {
+          "type": "number"
+        },
+        "limit": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}
