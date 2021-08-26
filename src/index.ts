@@ -16,36 +16,48 @@ import { errorHandler, logReq, responseHandler } from './utils/middleware';
 import { router as rideRouter } from './routers/ride.router';
 import { RidesEntity } from './models/rides';
 
-export const app: express.Express = express();
+export const createApp = async () => {
+  const app: express.Express = express();
+  app.use(cors({ origin: '*' }));
+  app.use(helmet());
+  app.use(express.json());
 
-app.use(cors({ origin: '*' }));
-app.use(helmet());
-app.use(express.json());
+  app.use(logReq);
 
-app.use(logReq);
-
-app.get('/health', (req: express.Request, res: express.Response, next: express.NextFunction) => {
-  (res as any).body = { message: 'API' };
-  next();
-});
-
-app.use('/rides', rideRouter);
-
-app.use(responseHandler);
-app.use(errorHandler);
-
-createConnection({
-  type: 'sqlite',
-  synchronize: true,
-  database: process.env.DB_NAME as string,
-  logging: false,
-  entities: [RidesEntity]
-})
-  .then(() => {
-    app.listen(process.env.PORT, () => {
-      console.log(`Server running on port ${process.env.PORT}`);
-    });
-  })
-  .catch((error) => {
-    console.error(error);
+  app.get('/health', (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    (res as any).body = { message: 'API' };
+    next();
   });
+
+  app.use('/rides', rideRouter);
+
+  app.use(responseHandler);
+  app.use(errorHandler);
+
+  try {
+    await createConnection({
+      type: 'sqlite',
+      synchronize: true,
+      database: process.env.DB_NAME as string,
+      logging: false,
+      entities: [RidesEntity]
+    });
+
+    return app;
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
+if (__filename === require.main?.filename) {
+  createApp()
+    .then((app) => {
+      app.listen(process.env.PORT, () => {
+        console.log(`Server running on port ${process.env.PORT}`);
+      });
+    })
+    .catch((e) => {
+      throw e;
+    });
+}
