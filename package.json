@@ -7,9 +7,9 @@
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "lint": "eslint \"{src,test}/**/*.ts\" --fix",
     "test": "cross-env NODE_ENV=test jest --config ./test/contract/jest-contract.json --detectOpenHandles --forceExit",
-    "start": "cross-env NODE_ENV=development ts-node src/index.ts",
+    "start-dev": "cross-env NODE_ENV=development ts-node src/index.ts",
     "build": "tsc",
-    "start-prod": "npm run build && cross-env NODE_ENV=production node dist/src/index.js"
+    "start": "npm run build && cross-env NODE_ENV=production node dist/src/index.js"
   },
   "repository": {
     "type": "git",
