@@ -37,7 +37,6 @@ jobs:
         with:
           name: builded_app
       - shell: bash
-        # run: "[ -d \"dist\" ] && echo \"Artifacts exists.\" || echo \"Error: Artifacts does not exists.\""
         run: ls
       - name: Mark current main as new version of app
         run: echo Set new tag in main branch
