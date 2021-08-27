@@ -1,0 +1,30 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  prepare_deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js 14
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - name: Install dependencies
+      run: npm i
+    - name: Linting your code
+      run: npm run lint
+    - name: Building your code
+      run: npm run build
+    - name: Testing your code
+      run: npm run test
+
+  deploy:
+    needs: prepare_deploy
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo Prepearing a Heroku server...
