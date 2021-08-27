@@ -20,6 +20,11 @@ jobs:
       run: npm run lint
     - name: Building your code
       run: npm run build
+    - name: Upload builded app to artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: builded_app
+        path: dist/
     - name: Testing your code
       run: npm run test
 
@@ -27,4 +32,13 @@ jobs:
     needs: prepare_deploy
     runs-on: ubuntu-latest
     steps:
-      - run: echo Prepearing a Heroku server...
+      - name: Download builded_app from artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: builded_app
+      - shell: bash
+        run: "[ -d \"dist\" ] && echo \"Artifacts exists.\" || echo \"Error: Artifacts does not exists.\""
+      - name: Mark current main as new version of app
+        run: echo Set new tag in main branch
+      - name: Download builded_app to server and run
+        run: echo Preparing a Heroku server...
