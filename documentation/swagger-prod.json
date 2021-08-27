@@ -1,13 +1,13 @@
 {
-  "swagger": "2.0",
+  "openapi": "3.0.0",
   "info": {
     "version": "1.0.0",
     "title": "backend-coding-test",
-    "description": "A coding assessment for Xendit backend interviews",
-    "license": {
-      "name": "MIT",
-      "url": "https://opensource.org/licenses/MIT"
-    }
+    "description": "A coding assessment for Xendit backend interviews"
   },
-  "host": "localhost:8010"
+  "servers": [
+    {
+      "url": "http://localhost:8010"
+    }
+  ]
 }

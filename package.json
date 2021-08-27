@@ -8,7 +8,7 @@
     "lint": "eslint \"{src,test}/**/*.ts\" --fix",
     "test": "cross-env NODE_ENV=test jest --config ./test/contract/jest-contract.json --detectOpenHandles --forceExit",
     "start-dev": "cross-env NODE_ENV=development ts-node src/index.ts",
-    "build": "tsc",
+    "build": "tsc && ts-node src/utils/copy-documentation.ts",
     "start": "npm run build && cross-env NODE_ENV=production node dist/src/index.js"
   },
   "repository": {
@@ -30,6 +30,7 @@
     "dotenv": "^8.6.0",
     "express": "^4.17.1",
     "express-validator": "^6.12.1",
+    "fs-extra": "^10.0.0",
     "helmet": "^4.6.0",
     "sqlite3": "^5.0.2",
     "swagger-ui-express": "^4.1.6",
@@ -40,6 +41,7 @@
   "devDependencies": {
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
+    "@types/fs-extra": "^9.0.12",
     "@types/jest": "^27.0.1",
     "@types/supertest": "^2.0.11",
     "@types/swagger-ui-express": "^4.1.3",
