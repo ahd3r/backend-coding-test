@@ -1,0 +1,36 @@
+{
+  "config": {
+    "target": "http://127.0.0.1:8010",
+    "phases": [
+      {
+        "duration": 10,
+        "arrivalRate": 1
+      }
+    ]
+  },
+  "scenarios": [
+    {
+      "flow": [
+        {
+          "get": {
+            "url": "/rides"
+          }
+        },
+        {
+          "post": {
+            "url": "/rides",
+            "json": {
+              "start_lat": 1,
+              "start_long": 1,
+              "end_lat": 1,
+              "end_long": 1,
+              "rider_name": "a",
+              "driver_name": "a",
+              "driver_vehicle": "a"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -7,6 +7,7 @@
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "lint": "eslint \"{src,test}/**/*.ts\" --fix",
     "test": "cross-env NODE_ENV=test jest --config ./test/contract/jest-contract.json --detectOpenHandles --forceExit",
+    "test-load": "artillery run artillery.json",
     "start-dev": "cross-env NODE_ENV=development ts-node src/index.ts",
     "build": "tsc && ts-node src/utils/copy-documentation.ts",
     "start": "npm run build && cross-env NODE_ENV=production node dist/src/index.js"
@@ -29,6 +30,7 @@
   },
   "homepage": "https://github.com/ahd3r/backend-coding-test#readme",
   "dependencies": {
+    "artillery": "^1.7.7",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "dotenv": "^8.6.0",
