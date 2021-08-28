@@ -24,7 +24,9 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: builded_app
-        path: dist
+        path: |
+          dist
+          documentation
     - name: Testing your code
       run: npm run test
 

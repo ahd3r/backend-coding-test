@@ -4,6 +4,7 @@ import * as helmet from 'helmet';
 import * as cors from 'cors';
 import { createConnection } from 'typeorm';
 import * as swaggerUi from 'swagger-ui-express';
+import * as fs from 'fs';
 
 if (process.env.NODE_ENV === 'production') {
   dotenv.config({ path: 'production.env' });
@@ -19,11 +20,13 @@ import { RidesEntity } from './models/rides';
 
 let swaggerDocument: any;
 if (process.env.NODE_ENV === 'production') {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  swaggerDocument = require('../documentation/swagger-prod.json');
+  swaggerDocument = JSON.parse(
+    fs.readFileSync(`${process.cwd()}/documentation/swagger-prod.json`).toString()
+  );
 } else if (process.env.NODE_ENV === 'development') {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  swaggerDocument = require('../documentation/swagger-dev.json');
+  swaggerDocument = JSON.parse(
+    fs.readFileSync(`${process.cwd()}/documentation/swagger-dev.json`).toString()
+  );
 }
 
 export const createApp = async () => {
@@ -35,10 +38,12 @@ export const createApp = async () => {
   app.use(logReq);
 
   if (swaggerDocument) {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const paths: any = require('../documentation/paths.json');
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const components: any = require('../documentation/components.json');
+    const paths: any = JSON.parse(
+      fs.readFileSync(`${process.cwd()}/documentation/paths.json`).toString()
+    );
+    const components: any = JSON.parse(
+      fs.readFileSync(`${process.cwd()}/documentation/components.json`).toString()
+    );
 
     app.use(
       '/api-docs',
