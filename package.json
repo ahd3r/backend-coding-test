@@ -10,6 +10,7 @@
     "test-load": "artillery run artillery.json",
     "start-dev": "cross-env NODE_ENV=development ts-node src/index.ts",
     "build": "tsc",
+    "postinstall": "npm run build",
     "start": "npm run build && npm npm start-prod",
     "start-prod": "cross-env NODE_ENV=production node dist/src/index.js"
   },
