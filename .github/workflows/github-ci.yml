@@ -24,9 +24,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: builded_app
-        path: |
-          dist
-          documentation
+        path: dist
     - name: Testing your code
       run: npm run test
 
@@ -34,13 +32,7 @@ jobs:
     needs: prepare_deploy
     runs-on: ubuntu-latest
     steps:
-      - name: Download builded_app from artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: builded_app
-      - shell: bash
-        run: ls
       - name: Mark current main as new version of app
-        run: echo Set new tag in main branch
+        run: echo Need to set new tag in main branch
       - name: Download builded_app to server and run
-        run: echo Preparing a Heroku server...
+        run: echo go to https://tech-task-backend-coding-test.herokuapp.com/
