@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:8010"
+      "url": "https://tech-task-backend-coding-test.herokuapp.com"
     }
   ]
 }
