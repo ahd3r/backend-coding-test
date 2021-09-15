@@ -3,10 +3,11 @@ FROM node
 
 WORKDIR /app
 
-COPY . .
+COPY ./package.json .
+RUN npm i --loglevel verbose
 
-# Install some deps
-RUN npm i
+COPY . .
+RUN npm run build
 
 # Default command
 CMD ["npm", "run", "start-prod"]
