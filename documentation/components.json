@@ -49,7 +49,7 @@
         "data": {
           "type": "array",
           "items": {
-            "$ref": "#/components/schemas/rideResponse"
+            "$ref": "#/components/schemas/ride"
           }
         },
         "pagination": {
