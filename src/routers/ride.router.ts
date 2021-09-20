@@ -47,14 +47,17 @@ router.get(
     query('page')
       .isInt({ min: 1 })
       .withMessage('Query page has to be an integer')
-      .toInt()
-      .default(1),
+      .optional()
+      .default(1)
+      .toInt(),
     query('limit')
       .isInt({ min: 1 })
-      .withMessage('Query limit has to be an integer')
-      .toInt()
+      .withMessage('Query page has to be an integer')
+      .optional()
       .default(10)
+      .toInt()
   ],
+  validateErrors,
   rideController.getRides
 );
 
