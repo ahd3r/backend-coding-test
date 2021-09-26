@@ -22,8 +22,8 @@ class RideController {
     next: express.NextFunction
   ): Promise<void> {
     try {
-      const page: number = req.query.page as any;
-      const limit: number = req.query.limit as any;
+      const page: number = (req.query.page as any) || 1;
+      const limit: number = (req.query.limit as any) || 10;
       (res as any).body = await rideService.getRides(page, limit);
       (res as any).pagination = await rideService.getPagination(page, limit);
       (res as any).pagination.inPage = (res as any).body.length;
